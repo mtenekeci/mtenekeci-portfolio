@@ -20,8 +20,13 @@ export function Button({
   const className = `${styles.button} ${styles[variant]}`;
 
   if (href) {
+    const isExternal = !href.startsWith("#");
     return (
-      <a href={href} className={className} target="_blank" rel="noopener noreferrer">
+      <a
+        href={href}
+        className={className}
+        {...(isExternal && { target: "_blank", rel: "noopener noreferrer" })}
+      >
         {children}
       </a>
     );

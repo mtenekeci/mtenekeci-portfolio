@@ -28,7 +28,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${playfair.variable} ${inter.variable}`}
     >
-      <body>
+      <body suppressHydrationWarning>
         <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
           {children}
         </ThemeProvider>
