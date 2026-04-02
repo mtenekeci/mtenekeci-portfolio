@@ -1,0 +1,25 @@
+.monogram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--color-accent);
+  background-color: var(--color-bg-subtle);
+  flex-shrink: 0;
+}
+
+.initials {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-accent);
+  letter-spacing: 0.05em;
+}
+
+.sm  { width: 2.5rem;  height: 2.5rem;  }
+.sm .initials  { font-size: 0.875rem; }
+
+.md  { width: 5rem;   height: 5rem;   }
+.md .initials  { font-size: 1.375rem; }
+
+.lg  { width: 7rem;   height: 7rem;   }
+.lg .initials  { font-size: 1.875rem; }
