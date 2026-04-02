@@ -115,7 +115,7 @@ export function Contact() {
             )}
             {status === "error" && <p className={styles.error}>{errorMsg}</p>}
 
-            <Button type="submit" variant="primary" disabled={status === "sending" || !turnstileToken}>
+            <Button type="submit" variant="primary" disabled={status === "sending"}>
               {status === "sending" ? "Sending…" : "Send Message"}
             </Button>
           </form>
