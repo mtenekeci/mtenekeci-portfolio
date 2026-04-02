@@ -1,10 +1,23 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 
+async function verifyTurnstile(token: string): Promise<boolean> {
+  const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      secret: process.env.TURNSTILE_SECRET_KEY,
+      response: token,
+    }),
+  });
+  const data = await res.json();
+  return data.success === true;
+}
+
 export async function POST(req: NextRequest) {
   const resend = new Resend(process.env.RESEND_API_KEY);
   const body = await req.json();
-  const { name, email, message } = body;
+  const { name, email, message, turnstileToken } = body;
 
   if (!name || !email || !message) {
     return NextResponse.json({ error: "All fields are required." }, { status: 400 });
@@ -12,6 +25,10 @@ export async function POST(req: NextRequest) {
 
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ error: "Invalid email address." }, { status: 400 });
+  }
+
+  if (!turnstileToken || !(await verifyTurnstile(turnstileToken))) {
+    return NextResponse.json({ error: "Security check failed. Please try again." }, { status: 403 });
   }
 
   if (!process.env.RESEND_API_KEY) {
