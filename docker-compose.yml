@@ -1,0 +1,15 @@
+services:
+  portfolio:
+    image: ghcr.io/mtenekeci/mtenekeci-portfolio:latest
+    container_name: mtenekeci-portfolio
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - RESEND_API_KEY=${RESEND_API_KEY}
+      - CONTACT_TO_EMAIL=${CONTACT_TO_EMAIL}
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
