@@ -9,7 +9,7 @@ import styles from "./Contact.module.css";
 
 type Status = "idle" | "sending" | "success" | "error";
 
-export function Contact() {
+export function Contact({ turnstileSiteKey }: { turnstileSiteKey: string }) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
@@ -100,7 +100,7 @@ export function Contact() {
 
             <Turnstile
               ref={turnstileRef}
-              siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+              siteKey={turnstileSiteKey}
               onSuccess={setTurnstileToken}
               onError={() => {
                 setTurnstileToken(null);

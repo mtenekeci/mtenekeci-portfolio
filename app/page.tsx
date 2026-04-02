@@ -8,6 +8,8 @@ import { Education } from "@/components/sections/Education";
 import { Contact } from "@/components/sections/Contact";
 
 export default function Home() {
+  const turnstileSiteKey = process.env.TURNSTILE_SITE_KEY ?? "";
+
   return (
     <>
       <Navbar />
@@ -17,7 +19,7 @@ export default function Home() {
         <Experience />
         <Skills />
         <Education />
-        <Contact />
+        <Contact turnstileSiteKey={turnstileSiteKey} />
       </main>
       <Footer />
     </>
