@@ -4,6 +4,7 @@ import { playfair, inter } from "@/lib/fonts";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
+  icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
   title: "Mehmet Tenekeci — Engineering Manager",
   description:
     "Engineering Manager at IMTF, ex-Google. Building high-performing teams and scalable tech solutions in Zurich, Switzerland.",
