@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react";
 import { profile } from "@/content/data";
 import { ThemeToggle } from "./ThemeToggle";
-import styles from "./Navbar.module.css";
+import { Menu, X, FileDown } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { motion, AnimatePresence } from "framer-motion";
 
 const NAV_LINKS = [
   { label: "About", href: "#about" },
@@ -42,36 +44,96 @@ export function Navbar() {
   }, []);
 
   return (
-    <header className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}>
-      <div className={`container ${styles.inner}`}>
-        <a href="#" className={styles.logo}>
+    <header
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        scrolled
+          ? "bg-background/80 backdrop-blur-md border-b border-border py-3 shadow-sm"
+          : "bg-transparent py-5"
+      )}
+    >
+      <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
+        <a href="#hero" className="text-xl font-bold tracking-tight text-foreground">
           {profile.initials}
         </a>
 
-        <nav className={`${styles.nav} ${menuOpen ? styles.open : ""}`}>
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-8">
           {NAV_LINKS.map(({ label, href }) => (
             <a
               key={href}
               href={href}
-              className={`${styles.link} ${activeSection === href.slice(1) ? styles.active : ""}`}
-              onClick={() => setMenuOpen(false)}
+              className={cn(
+                "text-sm font-medium transition-colors hover:text-accent",
+                activeSection === href.slice(1) ? "text-accent" : "text-muted-foreground"
+              )}
             >
               {label}
             </a>
           ))}
         </nav>
 
-        <div className={styles.actions}>
+        <div className="flex items-center gap-4">
           <ThemeToggle />
+
+          <a
+            href="/Profile.pdf"
+            download
+            className={cn(
+              "hidden sm:flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all",
+              "bg-primary text-primary-foreground hover:opacity-90 shadow-sm"
+            )}
+          >
+            <FileDown className="h-4 w-4" />
+            Resume
+          </a>
+
           <button
-            className={styles.hamburger}
+            className="md:hidden p-2 text-foreground focus-visible:outline-none"
             onClick={() => setMenuOpen((o) => !o)}
             aria-label="Toggle menu"
           >
-            {menuOpen ? "✕" : "☰"}
+            {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
       </div>
+
+      {/* Mobile Navigation */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-background border-b border-border overflow-hidden"
+          >
+            <div className="flex flex-col gap-4 px-6 py-8">
+              {NAV_LINKS.map(({ label, href }) => (
+                <a
+                  key={href}
+                  href={href}
+                  className={cn(
+                    "text-lg font-medium transition-colors",
+                    activeSection === href.slice(1) ? "text-accent" : "text-muted-foreground"
+                  )}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {label}
+                </a>
+              ))}
+              <a
+                href="/Profile.pdf"
+                download
+                className="flex items-center justify-center gap-2 mt-4 px-6 py-3 rounded-full bg-primary text-primary-foreground font-medium"
+                onClick={() => setMenuOpen(false)}
+              >
+                <FileDown className="h-5 w-5" />
+                Download Resume
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
