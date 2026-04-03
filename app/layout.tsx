@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
-import { playfair, inter } from "@/lib/fonts";
+import { dmSerifDisplay, inter } from "@/lib/fonts";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -27,7 +27,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${playfair.variable} ${inter.variable}`}
+      className={`${dmSerifDisplay.variable} ${inter.variable}`}
     >
       <body suppressHydrationWarning>
         <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
