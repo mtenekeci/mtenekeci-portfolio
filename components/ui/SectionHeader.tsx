@@ -52,12 +52,7 @@ export function SectionHeader({
         </p>
       )}
 
-      <div
-        className={cn(
-          "mt-6 h-px w-16 bg-accent-gradient rounded-full",
-          isLeft ? "" : ""
-        )}
-      />
+      <div className="mt-6 h-px w-16 bg-accent-gradient rounded-full" />
     </div>
   );
 }

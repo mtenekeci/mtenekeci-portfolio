@@ -54,7 +54,7 @@ export function Skills() {
               <div className="flex items-start justify-between mb-6">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-accent-gradient flex items-center justify-center text-white shadow-sm">
-                    <Icon className="h-4.5 w-4.5" />
+                    <Icon className="h-[18px] w-[18px]" />
                   </div>
                   <div>
                     <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-accent">

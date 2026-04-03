@@ -65,7 +65,7 @@ export function Experience() {
 
                   <div
                     className={cn(
-                      "group rounded-2xl p-7 border transition-all duration-250 hover:-translate-y-0.5",
+                      "group rounded-2xl p-7 border transition-all duration-[250ms] hover:-translate-y-0.5",
                       isFeatured
                         ? "bg-surface border-accent/20 shadow-sm"
                         : "bg-secondary/25 border-border hover:bg-secondary/40"
@@ -98,7 +98,7 @@ export function Experience() {
                     </div>
 
                     {/* Role */}
-                    <h3 className="text-xl md:text-2xl font-bold mb-4 group-hover:gradient-text transition-all duration-200">
+                    <h3 className="text-xl md:text-2xl font-bold mb-4 group-hover-gradient-text transition-all duration-200">
                       {item.role}
                     </h3>
 

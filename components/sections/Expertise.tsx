@@ -62,7 +62,7 @@ export function Expertise() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative glass bg-surface rounded-2xl p-8 hover:-translate-y-1 hover:glow-accent-sm transition-all duration-300"
+              className="group relative glass bg-surface rounded-2xl p-8 hover:-translate-y-1 hover-glow-accent-sm transition-all duration-300"
             >
               {/* Decorative number */}
               <span
@@ -81,7 +81,7 @@ export function Expertise() {
                 <item.icon className="h-5 w-5" />
               </div>
 
-              <h3 className="text-lg font-bold mb-3 group-hover:gradient-text-accent transition-colors">
+              <h3 className="text-lg font-bold mb-3 group-hover-gradient-text-accent transition-colors">
                 {item.title}
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">

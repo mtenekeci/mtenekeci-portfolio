@@ -51,7 +51,7 @@ export function Education() {
                   <p className="text-xs font-bold uppercase tracking-[0.14em] text-accent mb-2">
                     {d.years}
                   </p>
-                  <h4 className="text-xl font-bold mb-1 group-hover:gradient-text transition-all duration-200">
+                  <h4 className="text-xl font-bold mb-1 group-hover-gradient-text transition-all duration-200">
                     {d.institution}
                   </h4>
                   <p className="text-muted-foreground font-medium">
