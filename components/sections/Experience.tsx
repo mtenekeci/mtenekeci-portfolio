@@ -8,6 +8,8 @@ import { MapPin, Calendar, ChevronDown, Building2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 
+const FEATURED_COMPANIES = ["Google", "IMTF"];
+
 export function Experience() {
   const [showAll, setShowAll] = useState(false);
 
@@ -15,77 +17,123 @@ export function Experience() {
   const hiddenCount = experience.filter((e) => e.collapsed).length;
 
   return (
-    <section className="py-24 bg-background border-y border-border" id="experience">
+    <section className="py-28 bg-background relative" id="experience">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <SectionHeader title="Professional Experience" />
+        <SectionHeader
+          eyebrow="Career"
+          title="Professional Experience"
+          align="left"
+        />
 
-        <div className="space-y-12 relative before:absolute before:left-0 before:top-0 before:bottom-0 before:w-px before:bg-border md:before:left-1/2 md:before:-translate-x-1/2">
-          {visible.map((item, i) => (
-            <motion.div
-              key={`${item.company}-${item.role}-${i}`}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6, delay: (i % 3) * 0.1 }}
-              className={cn(
-                "relative pl-10 md:pl-0 md:w-[calc(50%-2rem)]",
-                i % 2 === 0 ? "md:ml-auto md:pl-8" : "md:mr-auto md:pr-8 text-left md:text-right"
-              )}
-            >
-              {/* Dot on timeline */}
-              <div
-                className={cn(
-                  "absolute top-0 md:top-8 w-4 h-4 bg-accent rounded-full border-4 border-background z-10",
-                  "left-0 md:left-1/2 md:-translate-x-1/2"
-                )}
-              />
+        <div className="relative">
+          {/* Timeline line */}
+          <div
+            className="absolute left-0 top-0 bottom-0 w-px hidden md:block"
+            style={{
+              background:
+                "linear-gradient(to bottom, var(--accent), color-mix(in srgb, var(--accent) 20%, transparent))",
+            }}
+          />
 
-              <div className="bg-secondary/30 border border-border p-8 rounded-2xl hover:shadow-md transition-shadow">
-                <div className="flex flex-col gap-4">
-                  <div className={cn(
-                    "flex flex-wrap items-center gap-4 text-xs font-semibold text-accent uppercase tracking-widest",
-                    i % 2 === 0 ? "" : "md:justify-end"
-                  )}>
-                    <div className="flex items-center gap-1.5">
-                      <Calendar className="h-4 w-4" />
-                      {item.start} – {item.end}
+          <div className="space-y-8">
+            {visible.map((item, i) => {
+              const isFeatured = FEATURED_COMPANIES.includes(item.company);
+
+              return (
+                <motion.div
+                  key={`${item.company}-${item.role}-${i}`}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.55, delay: (i % 4) * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                  className="relative md:pl-10"
+                >
+                  {/* Timeline dot */}
+                  <div
+                    className={cn(
+                      "absolute left-0 top-8 -translate-x-1/2 w-3 h-3 rounded-full border-2 border-background hidden md:block z-10",
+                      isFeatured
+                        ? "bg-accent w-4 h-4"
+                        : "bg-muted-foreground/50"
+                    )}
+                    style={
+                      isFeatured
+                        ? { boxShadow: "0 0 12px 2px color-mix(in srgb, var(--accent) 50%, transparent)" }
+                        : {}
+                    }
+                  />
+
+                  <div
+                    className={cn(
+                      "group rounded-2xl p-7 border transition-all duration-[250ms] hover:-translate-y-0.5",
+                      isFeatured
+                        ? "bg-surface border-accent/20 shadow-sm"
+                        : "bg-secondary/25 border-border hover:bg-secondary/40"
+                    )}
+                  >
+                    {/* Meta row */}
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 mb-4">
+                      {/* Company badge */}
+                      <span
+                        className={cn(
+                          "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest",
+                          isFeatured
+                            ? "bg-accent/10 text-accent border border-accent/20"
+                            : "bg-secondary text-muted-foreground border border-border"
+                        )}
+                      >
+                        <Building2 className="h-3 w-3" />
+                        {item.company}
+                      </span>
+
+                      <span className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+                        <Calendar className="h-3.5 w-3.5" />
+                        {item.start} – {item.end}
+                      </span>
+
+                      <span className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+                        <MapPin className="h-3.5 w-3.5" />
+                        {item.location}
+                      </span>
                     </div>
-                    <div className="flex items-center gap-1.5">
-                      <MapPin className="h-4 w-4" />
-                      {item.location}
-                    </div>
+
+                    {/* Role */}
+                    <h3 className="text-xl md:text-2xl font-bold mb-4 group-hover-gradient-text transition-all duration-200">
+                      {item.role}
+                    </h3>
+
+                    {/* Bullets */}
+                    <ul className="space-y-2.5">
+                      {item.bullets.map((bullet, idx) => (
+                        <li
+                          key={idx}
+                          className="flex items-start gap-3 text-muted-foreground leading-relaxed"
+                        >
+                          <span
+                            className="mt-2 w-1.5 h-1.5 rounded-full shrink-0"
+                            style={{ background: "var(--accent)" }}
+                          />
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-
-                  <div>
-                    <h3 className="text-2xl font-bold mb-1">{item.role}</h3>
-                    <div className={cn("flex items-center gap-2 text-lg font-medium text-muted-foreground", i % 2 === 0 ? "" : "md:justify-end")}>
-                      <Building2 className="h-5 w-5" />
-                      {item.company}
-                    </div>
-                  </div>
-
-                  <ul className={cn("space-y-3 mt-4", i % 2 === 0 ? "list-disc pl-5" : "md:text-right md:list-none")}>
-                    {item.bullets.map((bullet, idx) => (
-                      <li key={idx} className="text-muted-foreground leading-relaxed">
-                        {bullet}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
 
         {!showAll && hiddenCount > 0 && (
-          <div className="mt-20 flex justify-center">
+          <div className="mt-16 flex justify-center">
             <Button
               variant="outline"
               onClick={() => setShowAll(true)}
-              className="group gap-2 px-8 py-6 rounded-2xl text-lg border-2"
+              id="experience-show-more"
+              className="group gap-2 px-8 py-3 text-base rounded-full"
             >
               Show {hiddenCount} earlier positions
-              <ChevronDown className="h-5 w-5 transition-transform group-hover:translate-y-1" />
+              <ChevronDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
             </Button>
           </div>
         )}
