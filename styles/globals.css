@@ -1,52 +1,261 @@
-@import "./tokens.css";
+@import "tailwindcss";
 
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --font-sans: var(--font-body), system-ui, sans-serif;
+  --font-serif: var(--font-display), Georgia, serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 12px);
+}
+
+/* ─── Light Theme ────────────────────────────────────────────────────────── */
+:root {
+  --background:          #f7f7f5;
+  --foreground:          #0d0d12;
+  --surface:             #ffffff;
+
+  --primary:             #0d0d12;
+  --primary-foreground:  #f7f7f5;
+
+  --secondary:           #efeff0;
+  --secondary-foreground:#0d0d12;
+
+  --muted:               #9299a8;
+  --muted-foreground:    #6b7280;
+
+  --accent:              hsl(243, 72%, 57%);
+  --accent-foreground:   #ffffff;
+
+  --border:              #e2e2ea;
+  --input:               #e2e2ea;
+  --ring:                hsl(243, 72%, 57%);
+
+  --radius: 0.75rem;
+}
+
+/* ─── Dark Theme ─────────────────────────────────────────────────────────── */
+[data-theme="dark"] {
+  --background:          #0b0b10;
+  --foreground:          #ececf2;
+  --surface:             #121219;
+
+  --primary:             #ececf2;
+  --primary-foreground:  #0b0b10;
+
+  --secondary:           #18181f;
+  --secondary-foreground:#ececf2;
+
+  --muted:               #8b8fa8;
+  --muted-foreground:    #8b8fa8;
+
+  --accent:              hsl(243, 80%, 68%);
+  --accent-foreground:   #ffffff;
+
+  --border:              #1e1e2d;
+  --input:               #1e1e2d;
+  --ring:                hsl(243, 80%, 68%);
+}
+
+/* ─── Keyframes ──────────────────────────────────────────────────────────── */
+@keyframes gradient-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(40px, -30px) scale(1.06); }
+  66%       { transform: translate(-25px, 20px) scale(0.96); }
+}
+
+@keyframes gradient-drift-alt {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(-35px, 25px) scale(0.97); }
+  66%       { transform: translate(30px, -20px) scale(1.05); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1; }
+}
+
+@keyframes ticker-slide {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ─── Base ───────────────────────────────────────────────────────────────── */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--accent) 22%, transparent);
+    color: var(--foreground);
+  }
+}
+
+/* ─── Utility Classes ────────────────────────────────────────────────────── */
+@layer utilities {
+
+  /* Dot-grid background */
+  .bg-dot-grid {
+    background-image: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--foreground) 12%, transparent) 1px,
+      transparent 1px
+    );
+    background-size: 28px 28px;
+  }
+
+  /* Glassmorphism */
+  .glass {
+    background: color-mix(in srgb, var(--surface) 55%, transparent);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-color: color-mix(in srgb, var(--border) 70%, transparent);
+  }
+
+  .glass-strong {
+    background: color-mix(in srgb, var(--surface) 75%, transparent);
+    backdrop-filter: blur(28px) saturate(200%);
+    -webkit-backdrop-filter: blur(28px) saturate(200%);
+    border-color: color-mix(in srgb, var(--border) 80%, transparent);
+  }
+
+  /* Gradient text — subtle dark-to-accent */
+  .gradient-text {
+    background: linear-gradient(
+      140deg,
+      var(--foreground) 0%,
+      color-mix(in srgb, var(--foreground) 75%, var(--accent)) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Gradient text — accent-to-purple */
+  .gradient-text-accent {
+    background: linear-gradient(135deg, var(--accent) 0%, hsl(270, 65%, 65%) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Gradient background (buttons, icons) */
+  .bg-accent-gradient {
+    background: linear-gradient(135deg, var(--accent) 0%, hsl(263, 70%, 62%) 100%);
+  }
+
+  /* Glow shadows */
+  .glow-accent {
+    box-shadow: 0 0 48px -10px color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+
+  .glow-accent-sm {
+    box-shadow: 0 0 24px -6px color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+
+  .group:hover .group-hover-gradient-text {
+    background: linear-gradient(
+      140deg,
+      var(--foreground) 0%,
+      color-mix(in srgb, var(--foreground) 75%, var(--accent)) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .group:hover .group-hover-gradient-text-accent {
+    background: linear-gradient(135deg, var(--accent) 0%, hsl(270, 65%, 65%) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .hover-glow-accent-sm:hover {
+    box-shadow: 0 0 24px -6px color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+
+  /* Gradient border via pseudo element */
+  .border-gradient {
+    position: relative;
+  }
+
+  .border-gradient::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, var(--accent), hsl(270, 70%, 60%));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Drift animations for orbs */
+  .animate-drift {
+    animation: gradient-drift 14s ease-in-out infinite;
+  }
+
+  .animate-drift-alt {
+    animation: gradient-drift-alt 18s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2.5s ease-in-out infinite;
+  }
+
+  /* Section divider gradient line */
+  .divider-gradient {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--border),
+      transparent
+    );
+  }
 }
 
 html {
   scroll-behavior: smooth;
-}
-
-body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-body), system-ui, sans-serif;
-  font-size: 1rem;
-  line-height: 1.6;
-  transition: background-color 200ms ease, color 200ms ease;
-  -webkit-font-smoothing: antialiased;
-}
-
-h1, h2, h3, h4 {
-  font-family: var(--font-display), Georgia, serif;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
-  color: var(--color-text);
-}
-
-a {
-  color: var(--color-accent);
-  text-decoration: none;
-  transition: var(--transition);
-}
-
-a:hover {
-  color: var(--color-accent-hover);
-}
-
-.container {
-  max-width: var(--container-width);
-  margin: 0 auto;
-  padding: var(--container-padding);
-}
-
-.section {
-  padding: var(--section-padding);
-}
-
-.section--subtle {
-  background-color: var(--color-bg-subtle);
 }
