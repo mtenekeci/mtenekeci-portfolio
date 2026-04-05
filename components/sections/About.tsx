@@ -41,22 +41,25 @@ export function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:col-span-5 flex flex-col gap-4"
+            className="lg:col-span-5 flex flex-col gap-10"
           >
-            {about.stats.map(({ label, value }) => (
-              <div
+            {about.stats.map(({ label, value }, i) => (
+              <motion.div
                 key={label}
-                className="group glass bg-surface border border-border rounded-2xl p-7 hover:-translate-y-0.5 hover:border-accent/30 transition-all duration-200"
+                initial={{ opacity: 0, x: 16 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                className="group pl-6 py-0.5 border-l-[3px] transition-colors duration-300"
+                style={{ borderColor: "color-mix(in srgb, var(--accent) 35%, transparent)" }}
               >
-                <div className="flex items-baseline gap-3">
-                  <span className="text-5xl md:text-6xl font-bold gradient-text-accent">
-                    {value}
-                  </span>
-                </div>
-                <span className="mt-2 block text-sm font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                <span className="block text-3xl md:text-4xl font-bold gradient-text-accent leading-tight">
+                  {value}
+                </span>
+                <span className="mt-2 block text-[11px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
                   {label}
                 </span>
-              </div>
+              </motion.div>
             ))}
           </motion.div>
         </div>

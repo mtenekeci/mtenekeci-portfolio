@@ -57,8 +57,8 @@ export const about = {
     "I'm an Engineering Manager with 15+ years of experience leading high-performing teams across cloud architecture, machine learning, telecom, and enterprise systems. Most recently at Google and now at IMTF in Zurich, I specialize in growing engineers, driving technical strategy, and delivering complex software initiatives from inception to launch.",
   stats: [
     { label: "Years of Experience", value: "15+" },
-    { label: "Companies", value: "8+" },
-    { label: "Countries", value: "2" },
+    { label: "Engineer + Leader", value: "IC → EM" },
+    { label: "Technical Domains", value: "ML · Cloud · RegTech" },
   ] as Stat[],
 };
 

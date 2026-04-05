@@ -102,23 +102,28 @@ export function Hero() {
             {profile.tagline}
           </motion.p>
 
-          {/* Stat chips */}
+          {/* Stat strip */}
           <motion.div
             {...fadeUp(0.35)}
-            className="flex flex-wrap gap-3 mb-12"
+            className="flex flex-wrap items-stretch gap-y-6 mb-12"
             id="hero-stats"
           >
-            {about.stats.map(({ label, value }) => (
-              <div
-                key={label}
-                className="flex items-baseline gap-2 px-5 py-3 rounded-2xl bg-surface border border-border shadow-sm"
-              >
-                <span className="text-2xl font-bold gradient-text-accent">
-                  {value}
-                </span>
-                <span className="text-sm text-muted-foreground font-medium">
-                  {label}
-                </span>
+            {about.stats.map(({ label, value }, i) => (
+              <div key={label} className="flex items-center">
+                {i > 0 && (
+                  <div
+                    className="w-px h-9 mx-7 shrink-0"
+                    style={{ background: "var(--border)" }}
+                  />
+                )}
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-xl md:text-2xl font-bold gradient-text-accent leading-none">
+                    {value}
+                  </span>
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                    {label}
+                  </span>
+                </div>
               </div>
             ))}
           </motion.div>
