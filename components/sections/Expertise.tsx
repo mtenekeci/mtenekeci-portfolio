@@ -2,36 +2,29 @@
 
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { motion } from "framer-motion";
-import { Users, Lightbulb, Zap, Rocket } from "lucide-react";
+import { Cpu, TrendingUp, Shield } from "lucide-react";
 
 const EXPERTISE = [
   {
     num: "01",
-    title: "Engineering Leadership",
+    title: "Build",
     description:
-      "Leading teams of 40+ developers, mentoring engineers, and fostering growth-centric cultures that attract top talent.",
-    icon: Users,
+      "Led teams that built novel AI models for CT-scan anomaly detection adopted by 30+ hospitals, and production quantum-computing routing for 2,200+ trucks/day — at Koç Holding, Turkey's largest conglomerate.",
+    icon: Cpu,
   },
   {
     num: "02",
-    title: "Technical Strategy",
+    title: "Scale",
     description:
-      "Architecting scalable cloud solutions and guiding digital transformation for high-impact, mission-critical initiatives.",
-    icon: Lightbulb,
+      "Invented the GPU-protection layer Gemini depends on at Google. Grew the share of internal traffic managed by the team's platform from 21% → 46% across a ~20-month tenure.",
+    icon: TrendingUp,
   },
   {
     num: "03",
-    title: "Delivery Excellence",
+    title: "Productize",
     description:
-      "Overseeing complex software development from inception to launch — on time, at quality, every time.",
-    icon: Zap,
-  },
-  {
-    num: "04",
-    title: "Domain Innovation",
-    description:
-      "Specializing in RegTech, ML, and Cloud Architecture to solve the hardest problems in high-stakes domains.",
-    icon: Rocket,
+      "Lead the engineering organization shipping AI-powered fraud detection and name screening into regulated banking software used by 1,500+ global financial institutions at IMTF.",
+    icon: Shield,
   },
 ];
 
@@ -50,11 +43,11 @@ export function Expertise() {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <SectionHeader
           eyebrow="Core Expertise"
-          title="What I Bring"
-          subtitle="Combining strategic leadership with deep technical proficiency to ship great products and build exceptional teams."
+          title="Build · Scale · Productize"
+          subtitle="Three distinct chapters across the AI value chain — from building models to scaling infrastructure to shipping regulated products."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
           {EXPERTISE.map((item, index) => (
             <motion.div
               key={item.title}

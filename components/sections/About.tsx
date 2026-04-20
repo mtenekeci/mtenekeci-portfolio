@@ -8,7 +8,7 @@ export function About() {
   return (
     <section className="py-28 bg-background relative overflow-hidden" id="about">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <SectionHeader eyebrow="About" title="The Short Version" />
+        <SectionHeader eyebrow="About" title="Three Companies. One Through-Line." />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
           {/* Statement */}
